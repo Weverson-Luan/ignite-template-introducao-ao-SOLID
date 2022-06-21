@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { User } from "../model/User";
 
 interface ICreateUserDTO {
@@ -6,11 +7,11 @@ interface ICreateUserDTO {
 }
 
 interface IUsersRepository {
-  create({ name, email }: ICreateUserDTO): User;
-  findById(id: string): User | undefined;
+  create({ name, email }: ICreateUserDTO): Promise<User>;
+  findById(id: string): Promise<User | undefined>;
   findByEmail(email: string): User | undefined;
   turnAdmin(user: User): User;
-  list(): User[];
+  list(): Promise<User[]>;
 }
 
 export { IUsersRepository, ICreateUserDTO };

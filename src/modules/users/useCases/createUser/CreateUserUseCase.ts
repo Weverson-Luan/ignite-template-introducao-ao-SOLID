@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { User } from "../../model/User";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 
@@ -9,8 +10,13 @@ interface IRequest {
 class CreateUserUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
-  execute({ email, name }: IRequest): User {
-    // Complete aqui
+  async execute({ email, name }: IRequest): Promise<User> {
+    const user = this.usersRepository.create({
+      name,
+      email,
+    });
+
+    return user;
   }
 }
 
