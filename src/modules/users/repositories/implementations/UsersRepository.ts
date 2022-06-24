@@ -19,7 +19,7 @@ class UsersRepository implements IUsersRepository {
     return UsersRepository.INSTANCE;
   }
 
-  async create({ name, email }: ICreateUserDTO): Promise<User> {
+   create({ name, email }: ICreateUserDTO): User {
     const user = new User();
 
     Object.assign(user, {
@@ -32,21 +32,29 @@ class UsersRepository implements IUsersRepository {
     return user;
   }
 
-  findById(id: string): User | undefined {
-    // Complete aqui
-  }
+   findById(id: string): User | undefined  {
+    const user = this.users.find((user)=> user.id === id);
+
+    return user;
+  };
 
   findByEmail(email: string): User | undefined {
-    // Complete aqui
-  }
+    const user = this.users.find((user)=> user.email === email);
 
-  turnAdmin(receivedUser: User): User {
-    // Complete aqui
-  }
+    return user;
+  };
 
-  async list(): Promise<User[]> {
+   turnAdmin(receivedUser: User): User {
+    const user = this.users.find((user)=> user.id === receivedUser.id);
+    user.admin = true;
+    user.updated_at = new Date()
+
+    return user;
+  };
+
+   list(): User[] {
     return this.users;
-  }
+  };
 }
 
 export { UsersRepository };
