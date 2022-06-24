@@ -9,10 +9,18 @@ interface IRequest {
 class ListAllUsersUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
-  async execute({ user_id }: IRequest): Promise<User[]> {
-    const users = this.usersRepository.list();
+   execute({ user_id }: IRequest): User[] {
+    const user = this.usersRepository.findById(user_id)
 
-    return users;
+    if (!user) {
+      throw new Error('User not found')
+    }
+
+    if (!user.admin) {
+      throw new Error('You are not an admin')
+    }
+
+    return this.usersRepository.list()
   }
 }
 
