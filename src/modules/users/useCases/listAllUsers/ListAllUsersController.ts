@@ -10,7 +10,7 @@ class ListAllUsersController {
     const { user_id } = request.headers as { user_id: string };
     try {
       const users =  this.listAllUsersUseCase.execute({ user_id });
-
+  
       return response.status(200).json(users);
     } catch (error) {
       return response.status(400).json({

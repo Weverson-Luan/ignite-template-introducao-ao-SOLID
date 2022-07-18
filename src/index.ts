@@ -1,11 +1,17 @@
+/* eslint-disable prettier/prettier */
 import express from "express";
+import swaggerUi from "swagger-ui-express";
 
+import swaggerJson from "../swagger.json";
 import { usersRoutes } from "./routes/users.routes";
 
 const app = express();
 
 app.use(express.json());
 
+app.use("/api/v1/doc-solid", swaggerUi.serve, swaggerUi.setup(swaggerJson));
+
 app.use("/users", usersRoutes);
 
 export { app };
+ 
